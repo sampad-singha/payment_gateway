@@ -1,0 +1,224 @@
+/* ---------- Global ---------- */
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+    font-family: 'Inter', sans-serif;
+}
+
+body {
+    background: #f5f5f5;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    min-height: 100vh;
+    padding: 20px;
+}
+
+/* ---------- Card ---------- */
+.auth-card {
+    background: #fff;
+    padding: 3rem 2rem;
+    border-radius: 20px;
+    box-shadow: 0 20px 40px rgba(0,0,0,0.08);
+    width: 100%;
+    max-width: 420px;
+    animation: fadeIn 0.6s ease;
+}
+
+/* ---------- Brand ---------- */
+.brand {
+    text-align: center;
+    margin-bottom: 2rem;
+}
+
+.brand h1 {
+    font-weight: 700;
+    color: #000;
+    font-size: 1.8rem;
+    margin-bottom: .5rem;
+}
+
+.brand p {
+    color: #666;
+}
+
+/* ---------- Forms ---------- */
+.form-group {
+    margin-bottom: 1.5rem;
+}
+
+label {
+    display: block;
+    font-weight: 500;
+    color: #333;
+    margin-bottom: .5rem;
+}
+
+input, textarea {
+    width: 100%;
+    padding: .8rem 1rem;
+    border-radius: 12px;
+    border: 2px solid #e1e1e1;
+    font-size: 1rem;
+    transition: .3s;
+}
+
+input:focus, textarea:focus {
+    border-color: #000;
+    outline: none;
+    box-shadow: 0 0 0 3px rgba(0,0,0,0.1);
+}
+
+/* ---------- Footer + Links ---------- */
+.form-footer {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 1.5rem;
+}
+
+.form-footer a {
+    color: #000;
+    text-decoration: none;
+    font-weight: 500;
+}
+
+.form-footer a:hover {
+    text-decoration: underline;
+}
+
+.switch-link {
+    text-align: center;
+    margin-top: 1.5rem;
+}
+
+.switch-link a {
+    color: #000;
+    font-weight: 600;
+    text-decoration: none;
+}
+
+.switch-link a:hover {
+    text-decoration: underline;
+}
+
+/* ---------- Buttons ---------- */
+.primary-btn {
+    width: 100%;
+    padding: 1rem;
+    border-radius: 12px;
+    border: none;
+    background: #000;
+    color: #fff;
+    font-weight: 600;
+    cursor: pointer;
+    transition: .3s;
+}
+
+.primary-btn:hover {
+    background: #333;
+    transform: translateY(-2px);
+}
+
+.secondary-btn {
+    display: inline-block;
+    width: 100%;
+    padding: 1rem;
+    border-radius: 12px;
+
+    background: transparent;
+    border: 2px solid #e1e1e1;
+
+    color: #000;
+    font-weight: 600;
+    text-align: center;
+    text-decoration: none;
+
+    cursor: pointer;
+    transition: all 0.3s ease;
+}
+
+.secondary-btn:hover {
+    border-color: #000;
+    background: #f5f5f5;
+    transform: translateY(-2px);
+}
+
+.secondary-btn:active {
+    transform: translateY(0);
+}
+
+
+.oauth-buttons {
+    display: flex;
+    flex-direction: column;
+    gap: 0.75rem;
+    margin-top: 1.5rem;
+}
+
+.oauth-btn {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 0.5rem;
+    width: 100%;
+    padding: 0.9rem;
+    border: 2px solid #e1e1e1;
+    border-radius: 12px;
+    background: #fff;
+    font-weight: 500;
+    color: #333;
+    cursor: pointer;
+    transition: all 0.3s ease;
+}
+
+.oauth-btn i {
+    font-size: 1.1rem;
+}
+
+.oauth-btn:hover {
+    border-color: #000;
+    background: #f5f5f5;
+}
+
+/* ---------- 2FA QR + Codes ---------- */
+.qr-section {
+    text-align: center;
+    margin-bottom: 1.5rem;
+}
+
+.qr-placeholder {
+    width: 150px;
+    height: 150px;
+    background: repeating-linear-gradient(45deg, #f0f0f0, #f0f0f0 10px, #fff 10px, #fff 20px);
+    border-radius: 12px;
+    margin: 0 auto 1rem;
+}
+
+.backup-codes {
+    background: #fafafa;
+    border: 1px dashed #ccc;
+    border-radius: 12px;
+    padding: 1rem;
+    text-align: left;
+    margin-bottom: 1.5rem;
+}
+
+.backup-codes p {
+    margin-bottom: 0.5rem;
+    font-weight: 500;
+}
+
+.code-list {
+    font-family: monospace;
+    font-size: 0.95rem;
+    color: #333;
+    line-height: 1.5;
+}
+
+/* ---------- Animation ---------- */
+@keyframes fadeIn {
+    from { opacity: 0; transform: translateY(10px); }
+    to { opacity: 1; transform: translateY(0); }
+}

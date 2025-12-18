@@ -50,7 +50,12 @@ class SocialAuthController extends Controller
 
         try {
             $socialUser = Socialite::driver($provider)->user();
-        } catch (\Exception $e) {
+        } catch (Exception $e) {
+            // optional but recommended
+            Log::error('OAuth signup failed', [
+                'provider' => $provider,
+                'error' => $e->getMessage(),
+            ]);
             return redirect()->route('login')
                 ->withErrors(['oauth' => 'Authentication with ' . $provider . ' failed.']);
         }
@@ -111,6 +116,7 @@ class SocialAuthController extends Controller
                         ?? $socialUser->getNickname()
                             ?? 'No Name',
                     'password' => bcrypt(Str::random(40)),
+                    'password_set' => false,
                     'email_verified_at' => now(),
                 ]
             );
@@ -144,6 +150,11 @@ class SocialAuthController extends Controller
         }
 
         Auth::login($user, true);
+        // Prompt to set password if not set (Generated random password)
+        if (! $user->password_set) {
+            return redirect()->route('password.set');
+        }
+
         return redirect()->intended('/dashboard');
     }
 
@@ -177,7 +188,7 @@ class SocialAuthController extends Controller
 
         try {
             $socialUser = Socialite::driver($provider)->user();
-        } catch (\Exception $e) {
+        } catch (Exception $e) {
             Log::error('OAuth connect failed (provider callback)', [
                 'provider' => $provider,
                 'error' => $e->getMessage(),

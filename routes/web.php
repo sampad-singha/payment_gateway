@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Controllers\Auth\SetPasswordController;
 use Illuminate\Support\Facades\Route;
 use Illuminate\Foundation\Auth\EmailVerificationRequest;
 use Illuminate\Http\Request;
@@ -62,10 +63,21 @@ Route::middleware(['auth', 'verified'])->group(function () {
 
     /*
     |----------------------------------------------------------------------
+    | Password Set For the first time for oauth users
+    |----------------------------------------------------------------------
+    */
+    Route::get('/set-password', fn () => view('auth.set-password'))
+        ->name('password.set');
+
+    Route::post('/set-password', [SetPasswordController::class, 'store'])
+        ->name('password.store');
+
+    /*
+    |----------------------------------------------------------------------
     | User Profile / 2FA
     |----------------------------------------------------------------------
     */
-    Route::prefix('user')->name('user.')->group(function () {
+    Route::middleware('password.set')->prefix('user')->name('user.')->group(function () {
         Route::view('two-factor-authentication', 'profile.two-factor-authentication')
             ->name('two-factor.index');
 

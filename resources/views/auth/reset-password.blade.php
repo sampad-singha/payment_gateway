@@ -1,37 +1,56 @@
-<!doctype html>
-<html>
-<body>
-<h1>Reset Password</h1>
+@extends('layout.frontend.auth')
 
-<form method="POST" action="/reset-password">
-    @csrf
+@section('content')
+    <div class="auth-card">
+        <div class="brand">
+            <h1>LearnEdge</h1>
+            <p>Enter and confirm your new password</p>
+        </div>
 
-    <input type="hidden" name="token" value="{{ request()->route('token') }}">
+        {{-- Validation Errors --}}
+        @if ($errors->any())
+            <div class="alert alert-danger">
+                <ul>
+                    @foreach ($errors->all() as $error)
+                        <li>{{ $error }}</li>
+                    @endforeach
+                </ul>
+            </div>
+        @endif
 
-    <input
-            type="email"
-            name="email"
-            placeholder="Email"
-            required
-    >
+        <form method="POST" action="{{ route('password.update') }}">
+            @csrf
 
-    <input
-            type="password"
-            name="password"
-            placeholder="New Password"
-            required
-    >
+            {{-- Required reset token --}}
+            <input type="hidden" name="token" value="{{ $request->route('token') }}">
 
-    <input
-            type="password"
-            name="password_confirmation"
-            placeholder="Confirm Password"
-            required
-    >
+            {{-- Required email --}}
+            <input type="hidden" name="email" value="{{ old('email', $request->email) }}">
 
-    <button type="submit">
-        Reset Password
-    </button>
-</form>
-</body>
-</html>
+            <div class="form-group">
+                <label>New Password</label>
+                <input
+                        type="password"
+                        name="password"
+                        placeholder="••••••••"
+                        required
+                        autofocus
+                >
+            </div>
+
+            <div class="form-group">
+                <label>Confirm New Password</label>
+                <input
+                        type="password"
+                        name="password_confirmation"
+                        placeholder="••••••••"
+                        required
+                >
+            </div>
+
+            <button type="submit" class="primary-btn">
+                Reset Password
+            </button>
+        </form>
+    </div>
+@endsection
