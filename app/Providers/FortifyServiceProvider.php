@@ -8,11 +8,13 @@ use App\Actions\Fortify\UpdateUserPassword;
 use App\Actions\Fortify\UpdateUserProfileInformation;
 use Illuminate\Cache\RateLimiting\Limit;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\RateLimiter;
 use Illuminate\Support\ServiceProvider;
 use Illuminate\Support\Str;
 use Laravel\Fortify\Actions\RedirectIfTwoFactorAuthenticatable;
 use Laravel\Fortify\Fortify;
+use Laravel\Fortify\Http\Responses\LoginResponse;
 
 class FortifyServiceProvider extends ServiceProvider
 {
@@ -21,7 +23,18 @@ class FortifyServiceProvider extends ServiceProvider
      */
     public function register(): void
     {
-        //
+        $this->app->singleton(LoginResponse::class, function () {
+            return new class extends LoginResponse {
+                public function toResponse($request)
+                {
+                    return redirect()->intended(
+                        $request->user()->hasRole(['admin', 'super-admin'])
+                            ? '/admin/dashboard'
+                            : '/dashboard'
+                    );
+                }
+            };
+        });
     }
 
     /**
@@ -35,14 +48,30 @@ class FortifyServiceProvider extends ServiceProvider
         Fortify::resetUserPasswordsUsing(ResetUserPassword::class);
         Fortify::redirectUserForTwoFactorAuthenticationUsing(RedirectIfTwoFactorAuthenticatable::class);
 
-        RateLimiter::for('login', function (Request $request) {
-            $throttleKey = Str::transliterate(Str::lower($request->input(Fortify::username())).'|'.$request->ip());
-
-            return Limit::perMinute(5)->by($throttleKey);
+        // Views for Fortify (user auth)
+        Fortify::loginView(function () {
+            return view('auth.login');
         });
 
-        RateLimiter::for('two-factor', function (Request $request) {
-            return Limit::perMinute(5)->by($request->session()->get('login.id'));
+        Fortify::registerView(function () {
+            return view('auth.register');
         });
+
+        Fortify::requestPasswordResetLinkView(fn () =>
+        view('auth.forgot-password')
+        );
+
+        Fortify::resetPasswordView(fn ($request) =>
+        view('auth.reset-password', ['request' => $request])
+        );
+
+        Fortify::twoFactorChallengeView(fn () =>
+        view('auth.two-factor-challenge')
+        );
+
+        Fortify::confirmPasswordView(fn () =>
+        view('auth.confirm-password')
+        );
+
     }
 }
