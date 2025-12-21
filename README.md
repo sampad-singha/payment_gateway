@@ -1,59 +1,118 @@
-<p align="center"><a href="https://laravel.com" target="_blank"><img src="https://raw.githubusercontent.com/laravel/art/master/logo-lockup/5%20SVG/2%20CMYK/1%20Full%20Color/laravel-logolockup-cmyk-red.svg" width="400" alt="Laravel Logo"></a></p>
+# Payment Gateway Integration System
 
-<p align="center">
-<a href="https://github.com/laravel/framework/actions"><img src="https://github.com/laravel/framework/workflows/tests/badge.svg" alt="Build Status"></a>
-<a href="https://packagist.org/packages/laravel/framework"><img src="https://img.shields.io/packagist/dt/laravel/framework" alt="Total Downloads"></a>
-<a href="https://packagist.org/packages/laravel/framework"><img src="https://img.shields.io/packagist/v/laravel/framework" alt="Latest Stable Version"></a>
-<a href="https://packagist.org/packages/laravel/framework"><img src="https://img.shields.io/packagist/l/laravel/framework" alt="License"></a>
-</p>
+A Laravel-based web application demonstrating secure payment processing using the SSLCommerz payment gateway, along with user authentication, role-based authorization, and social login support.
 
-## About Laravel
+This project is not a generic payment gateway implementation. It focuses on integrating a real-world payment provider within a structured Laravel application, following best practices for authentication, authorization, and maintainability.
 
-Laravel is a web application framework with expressive, elegant syntax. We believe development must be an enjoyable and creative experience to be truly fulfilling. Laravel takes the pain out of development by easing common tasks used in many web projects, such as:
+## Features
 
-- [Simple, fast routing engine](https://laravel.com/docs/routing).
-- [Powerful dependency injection container](https://laravel.com/docs/container).
-- Multiple back-ends for [session](https://laravel.com/docs/session) and [cache](https://laravel.com/docs/cache) storage.
-- Expressive, intuitive [database ORM](https://laravel.com/docs/eloquent).
-- Database agnostic [schema migrations](https://laravel.com/docs/migrations).
-- [Robust background job processing](https://laravel.com/docs/queues).
-- [Real-time event broadcasting](https://laravel.com/docs/broadcasting).
+- SSLCommerz payment gateway integration
+- Secure payment request and callback handling
+- User authentication using Laravel Fortify
+- Role-based authorization using Spatie Permission
+- Social login with Google and Facebook
+- Environment-based configuration
+- Laravel MVC architecture
+- Automated testing support
 
-Laravel is accessible, powerful, and provides tools required for large, robust applications.
+## Tech Stack
 
-## Learning Laravel
+### Backend
+- PHP >= 8.0
+- Laravel Framework
 
-Laravel has the most extensive and thorough [documentation](https://laravel.com/docs) and video tutorial library of all modern web application frameworks, making it a breeze to get started with the framework. You can also check out [Laravel Learn](https://laravel.com/learn), where you will be guided through building a modern Laravel application.
+### Authentication & Authorization
+- Laravel Fortify
+- Spatie Laravel Permission
 
-If you don't feel like reading, [Laracasts](https://laracasts.com) can help. Laracasts contains thousands of video tutorials on a range of topics including Laravel, modern PHP, unit testing, and JavaScript. Boost your skills by digging into our comprehensive video library.
+### Payment Gateway
+- SSLCommerz
 
-## Laravel Sponsors
+### Frontend
+- Blade Templates
+- Vite (Asset Bundling)
 
-We would like to extend our thanks to the following sponsors for funding Laravel development. If you are interested in becoming a sponsor, please visit the [Laravel Partners program](https://partners.laravel.com).
+### Database
+- MySQL (or any Laravel-supported relational database)
 
-### Premium Partners
+### Testing
+- PHPUnit
 
-- **[Vehikl](https://vehikl.com)**
-- **[Tighten Co.](https://tighten.co)**
-- **[Kirschbaum Development Group](https://kirschbaumdevelopment.com)**
-- **[64 Robots](https://64robots.com)**
-- **[Curotec](https://www.curotec.com/services/technologies/laravel)**
-- **[DevSquad](https://devsquad.com/hire-laravel-developers)**
-- **[Redberry](https://redberry.international/laravel-development)**
-- **[Active Logic](https://activelogic.com)**
+## Project Structure
 
-## Contributing
+app/        Application core logic  
+bootstrap/ Laravel bootstrap files  
+config/     Configuration files  
+database/   Migrations and seeders  
+public/     Publicly accessible files  
+resources/  Views and frontend assets  
+routes/     Web and API routes  
+storage/    Logs and cached files  
+tests/      Automated tests  
 
-Thank you for considering contributing to the Laravel framework! The contribution guide can be found in the [Laravel documentation](https://laravel.com/docs/contributions).
+## Installation
 
-## Code of Conduct
+### Prerequisites
+- PHP >= 8.0
+- Composer
+- MySQL
+- Node.js & npm
 
-In order to ensure that the Laravel community is welcoming to all, please review and abide by the [Code of Conduct](https://laravel.com/docs/contributions#code-of-conduct).
+### Steps
 
-## Security Vulnerabilities
+1. Clone the repository:
+   git clone https://github.com/sampad-singha/payment_gateway.git
 
-If you discover a security vulnerability within Laravel, please send an e-mail to Taylor Otwell via [taylor@laravel.com](mailto:taylor@laravel.com). All security vulnerabilities will be promptly addressed.
+2. Navigate to the project directory:
+   cd payment_gateway
+
+3. Install PHP dependencies:
+   composer install
+
+4. Install frontend dependencies:
+   npm install
+   npm run build
+
+5. Copy environment file:
+   cp .env.example .env
+
+6. Generate application key:
+   php artisan key:generate
+
+## Environment Configuration
+
+Update the following variables in the `.env` file:
+
+DB_DATABASE=your_database_name  
+DB_USERNAME=your_database_user  
+DB_PASSWORD=your_database_password  
+
+SSLCOMMERZ_STORE_ID=your_store_id  
+SSLCOMMERZ_STORE_PASSWORD=your_store_password  
+SSLCOMMERZ_SANDBOX=true  
+
+GOOGLE_CLIENT_ID=your_google_client_id  
+GOOGLE_CLIENT_SECRET=your_google_client_secret  
+
+FACEBOOK_CLIENT_ID=your_facebook_client_id  
+FACEBOOK_CLIENT_SECRET=your_facebook_client_secret  
+
+## Running the Application
+
+Run database migrations:
+php artisan migrate
+
+Start the development server:
+php artisan serve
+
+The application will be available at:
+http://127.0.0.1:8000
+
+## Testing
+
+Run automated tests using PHPUnit:
+php artisan test
 
 ## License
 
-The Laravel framework is open-sourced software licensed under the [MIT license](https://opensource.org/licenses/MIT).
+This project is open-source and available under the MIT License.
