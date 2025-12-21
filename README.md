@@ -1,4 +1,10 @@
-# Payment Gateway Integration System
+# Laravel Feature Sets
+
+![License](https://img.shields.io/badge/license-MIT-green)
+![PHP](https://img.shields.io/badge/PHP-%3E%3D8.0-blue)
+![Laravel](https://img.shields.io/badge/Laravel-10-red)
+![Build](https://img.shields.io/badge/build-passing-brightgreen)
+![PRs](https://img.shields.io/badge/PRs-welcome-brightgreen)
 
 A Laravel-based web application demonstrating secure payment processing using the SSLCommerz payment gateway, along with user authentication, role-based authorization, and social login support.
 
