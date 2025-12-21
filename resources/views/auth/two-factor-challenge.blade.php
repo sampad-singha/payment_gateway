@@ -1,30 +1,67 @@
-<!doctype html>
-<html>
-<body>
-<h1>Two Factor Challenge</h1>
+@extends('layout.frontend.auth')
 
-<form method="POST" action="/two-factor-challenge">
-    @csrf
+@section('content')
+    <div class="auth-card">
+        <div class="brand">
+            <h1>LearnEdge</h1>
+            <p>Enter the authentication code from your app</p>
+        </div>
 
-    <input
-            type="text"
-            name="code"
-            placeholder="Authentication Code"
-    >
+        {{-- Validation Errors --}}
+        @if ($errors->any())
+            <div class="alert alert-danger">
+                <ul>
+                    @foreach ($errors->all() as $error)
+                        <li>{{ $error }}</li>
+                    @endforeach
+                </ul>
+            </div>
+        @endif
 
-    <button>Verify</button>
-</form>
+        {{-- AUTHENTICATOR CODE --}}
+        <form method="POST" action="{{ route('two-factor.login') }}">
+            @csrf
 
-<form method="POST" action="/two-factor-challenge">
-    @csrf
+            <div class="form-group">
+                <label>Authentication Code</label>
+                <input
+                        type="text"
+                        name="code"
+                        inputmode="numeric"
+                        pattern="[0-9]{6}"
+                        placeholder="123456"
+                        autofocus
+                        required
+                >
+            </div>
 
-    <input
-            type="text"
-            name="recovery_code"
-            placeholder="Recovery Code"
-    >
+            <button type="submit" class="primary-btn">
+                Verify
+            </button>
+        </form>
 
-    <button>Use Recovery Code</button>
-</form>
-</body>
-</html>
+        <hr>
+
+        {{-- RECOVERY CODE OPTION --}}
+        <form method="POST" action="{{ route('two-factor.login') }}">
+            @csrf
+
+            <div class="form-group">
+                <label>Recovery Code</label>
+                <input
+                        type="text"
+                        name="recovery_code"
+                        placeholder="XXXX-XXXX"
+                >
+            </div>
+
+            <button type="submit" class="primary-btn secondary">
+                Use Recovery Code
+            </button>
+        </form>
+
+        <p class="switch-link">
+            Lost your device? Use a recovery code instead.
+        </p>
+    </div>
+@endsection
